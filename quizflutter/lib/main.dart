@@ -27,15 +27,18 @@ class QuizState extends State<QuizContainer> {
   final _questions = [
     {
       'title': 'Which is the smallest of them?',
-      'answers': ['Cat', 'Dog', 'Mouse']
+      'answers': ['Cat', 'Dog', 'Mouse'],
+      'correctAnswer': 'Mouse'
     },
     {
       'title': 'Find the odd one out?',
-      'answers': ['Honey', 'Cheese', 'Mozerrela']
+      'answers': ['Honey', 'Cheese', 'Mozerrela'],
+      'correctAnswer': 'Honey'
     },
     {
       'title': 'Who is the oldest of them all?',
-      'answers': ['Gandalf', 'Harry', 'Dobby the elf']
+      'answers': ['Gandalf', 'Harry', 'Dobby the elf'],
+      'correctAnswer': 'Gandalf'
     }
   ];
 
