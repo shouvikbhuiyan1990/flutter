@@ -13,7 +13,7 @@ class Answers extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: RaisedButton(
         padding: EdgeInsets.all(10),
-        onPressed: choseAnswer,
+        onPressed: () => choseAnswer(answerText),
         child: Text(
           answerText,
           style: TextStyle(fontSize: 15),

@@ -24,6 +24,7 @@ class QuizContainer extends StatefulWidget {
 
 class QuizState extends State<QuizContainer> {
   int questionCount = 0;
+  int correctAnswer = 0;
   final _questions = [
     {
       'title': 'Which is the smallest of them?',
@@ -42,25 +43,34 @@ class QuizState extends State<QuizContainer> {
     }
   ];
 
-  _choseAnswer() {
-    setState(() {
-      questionCount++;
-    });
+  _choseAnswer(String answer) {
+    if (answer == _questions[questionCount]['correctAnswer']) {
+      setState(() {
+        correctAnswer++;
+        questionCount++;
+      });
+    } else {
+      setState(() {
+        questionCount++;
+      });
+    }
   }
 
   _resetQuiz() {
     setState(() {
       questionCount = 0;
+      correctAnswer = 0;
     });
   }
 
   _restartQuiz() {
     return Center(
+      heightFactor: 10,
       child: Column(
         children: <Widget>[
           Text(
-            'You have completed the quiz',
-            style: TextStyle(height: 10),
+            'You have completed the quiz, You answered $correctAnswer correct questions',
+            style: TextStyle(fontSize: 14),
           ),
           FlatButton(
             child: Text('Restart Quiz'),
