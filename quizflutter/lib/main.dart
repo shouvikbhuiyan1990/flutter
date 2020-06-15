@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './questions.dart';
+import './answers.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,33 +25,30 @@ class QuizContainer extends StatefulWidget {
 class QuizState extends State<QuizContainer> {
   final _questions = [
     {
-      'title': 'Which is the smallest of them',
+      'title': 'Which is the smallest of them?',
       'answers': ['cat', 'dog', 'mouse']
     },
     {
-      'title': 'Find the odd one out',
+      'title': 'Find the odd one out?',
       'answers': ['honey', 'cheese', 'mozerrela']
     },
     {
-      'title': 'Who is the oldest of them all',
+      'title': 'Who is the oldest of them all?',
       'answers': ['Gandalf', 'Harry', 'Dobby the elf']
     }
   ];
 
+  _choseAnswer() {
+    print('answer given');
+  }
+
   _buildQuiz() {
     return Column(
       children: <Widget>[
-        Text(
-          _questions[0]['title'],
-          textAlign: TextAlign.left,
-        ),
+        Question(_questions[0]['title']),
         ...(_questions[0]['answers'] as List<String>)
             .map(
-              (e) => Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                child: Text(e),
-              ),
+              (e) => Answers(e, _choseAnswer)
             )
             .toList()
       ],
