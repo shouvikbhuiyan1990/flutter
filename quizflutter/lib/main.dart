@@ -27,11 +27,11 @@ class QuizState extends State<QuizContainer> {
   final _questions = [
     {
       'title': 'Which is the smallest of them?',
-      'answers': ['cat', 'dog', 'mouse']
+      'answers': ['Cat', 'Dog', 'Mouse']
     },
     {
       'title': 'Find the odd one out?',
-      'answers': ['honey', 'cheese', 'mozerrela']
+      'answers': ['Honey', 'Cheese', 'Mozerrela']
     },
     {
       'title': 'Who is the oldest of them all?',
@@ -52,14 +52,19 @@ class QuizState extends State<QuizContainer> {
   }
 
   _restartQuiz() {
-    return Column(
-      children: <Widget>[
-        Text('You have completed the quiz'),
-        FlatButton(
-          child: Text('Restart Quiz'),
-          onPressed: _resetQuiz,
-        )
-      ],
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Text(
+            'You have completed the quiz',
+            style: TextStyle(height: 10),
+          ),
+          FlatButton(
+            child: Text('Restart Quiz'),
+            onPressed: _resetQuiz,
+          )
+        ],
+      ),
     );
   }
 
@@ -75,10 +80,9 @@ class QuizState extends State<QuizContainer> {
   }
 
   _buildQuiz() {
-    if(questionCount >= _questions.length) {
+    if (questionCount >= _questions.length) {
       return _restartQuiz();
-    }
-    else {
+    } else {
       return _beginQuiz();
     }
   }
