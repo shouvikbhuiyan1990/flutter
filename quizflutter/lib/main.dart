@@ -23,6 +23,7 @@ class QuizContainer extends StatefulWidget {
 }
 
 class QuizState extends State<QuizContainer> {
+  int questionCount = 0;
   final _questions = [
     {
       'title': 'Which is the smallest of them?',
@@ -39,20 +40,47 @@ class QuizState extends State<QuizContainer> {
   ];
 
   _choseAnswer() {
-    print('answer given');
+    setState(() {
+      questionCount++;
+    });
   }
 
-  _buildQuiz() {
+  _resetQuiz() {
+    setState(() {
+      questionCount = 0;
+    });
+  }
+
+  _restartQuiz() {
     return Column(
       children: <Widget>[
-        Question(_questions[0]['title']),
-        ...(_questions[0]['answers'] as List<String>)
-            .map(
-              (e) => Answers(e, _choseAnswer)
-            )
+        Text('You have completed the quiz'),
+        FlatButton(
+          child: Text('Restart Quiz'),
+          onPressed: _resetQuiz,
+        )
+      ],
+    );
+  }
+
+  _beginQuiz() {
+    return Column(
+      children: <Widget>[
+        Question(_questions[questionCount]['title']),
+        ...(_questions[questionCount]['answers'] as List<String>)
+            .map((e) => Answers(e, _choseAnswer))
             .toList()
       ],
     );
+  }
+
+  _buildQuiz() {
+    if(questionCount >= _questions.length) {
+      return _restartQuiz();
+    }
+    else {
+      return _beginQuiz();
+    }
   }
 
   @override
