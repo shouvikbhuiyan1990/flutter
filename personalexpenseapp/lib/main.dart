@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
+import './model/transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +29,12 @@ class ExpenseContainer extends StatefulWidget {
 }
 
 class _ExpenseContainerState extends State<ExpenseContainer> {
+  final List<Transactions> transactions = [
+    Transactions(id: DateTime.now().toString(), amount: 12.00, txName: 'Transaction Name', time:DateTime.now() ),
+    Transactions(id: DateTime.now().toString(), amount: 12.00, txName: 'Second Name', time:DateTime.now() ),
+    Transactions(id: DateTime.now().toString(), amount: 12.00, txName: 'third Name', time:DateTime.now() ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +51,8 @@ class _ExpenseContainerState extends State<ExpenseContainer> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              NewTransaction()
+              NewTransaction(),
+              TransactionList(transactions)
             ],
           ),
         ),

@@ -6,5 +6,5 @@ class Transactions {
   @required final double amount;
   @required final DateTime time;
 
-  Transactions(this.id, this.txName, this.amount, this.time);
+  Transactions({this.id, this.txName, this.amount, this.time});
 }
