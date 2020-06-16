@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../model/transaction.dart';
 
 class TransactionList extends StatelessWidget {
@@ -12,12 +13,12 @@ class TransactionList extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
               '\$${tx.amount.toString()}',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 color: Colors.blue,
               ),
             ),
@@ -30,7 +31,7 @@ class TransactionList extends StatelessWidget {
                       color: Colors.black,
                     )),
                 Text(
-                  tx.time.toString(),
+                  DateFormat.yMMMM().format(tx.time),
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
