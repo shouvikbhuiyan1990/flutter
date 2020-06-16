@@ -7,15 +7,35 @@ class TransactionList extends StatelessWidget {
   TransactionList(this.transactions);
 
   _buildTransactionCard(tx) {
-    return Container(
-      child: Card(
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(tx.txName),
+            Text(
+              '\$${tx.amount.toString()}',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.blue,
+              ),
+            ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(tx.txName),
-                Text(tx.txName),
+                Text(tx.txName,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    )),
+                Text(
+                  tx.time.toString(),
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
+                ),
               ],
             )
           ],
