@@ -9,6 +9,7 @@ class NewTransaction extends StatelessWidget {
     return Container(
       child: Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             Card(
               child: TextField(
@@ -25,6 +26,17 @@ class NewTransaction extends StatelessWidget {
                   WhitelistingTextInputFormatter.digitsOnly
                 ],
               ),
+            ),
+            FlatButton(
+              onPressed: () {},
+              child: Text(
+                'Add Transaction',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              textColor: Colors.purpleAccent,
             )
           ],
         ),
