@@ -28,19 +28,6 @@ class ExpenseContainer extends StatefulWidget {
   _ExpenseContainerState createState() => _ExpenseContainerState();
 }
 
-void _startAddNewTransaction(BuildContext ctx) {
-  showModalBottomSheet(
-    context: ctx,
-    builder: (_) {
-      return GestureDetector(
-        child: NewTransaction(),
-        onTap: () {},
-        behavior: HitTestBehavior.opaque,
-      );
-    },
-  );
-}
-
 class _ExpenseContainerState extends State<ExpenseContainer> {
   final List<Transactions> transactions = [
     Transactions(
@@ -59,6 +46,30 @@ class _ExpenseContainerState extends State<ExpenseContainer> {
         txName: 'third Name',
         time: DateTime.now()),
   ];
+
+  void _addNewTransaction(name, amount) {
+    setState(() {
+      transactions.add(Transactions(
+        amount: double.parse(amount),
+        id: DateTime.now().toString(),
+        txName: name,
+        time: DateTime.now(),
+      ));
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          child: NewTransaction(_addNewTransaction),
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
