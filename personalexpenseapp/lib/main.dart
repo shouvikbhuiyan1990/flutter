@@ -28,34 +28,73 @@ class ExpenseContainer extends StatefulWidget {
   _ExpenseContainerState createState() => _ExpenseContainerState();
 }
 
+void _startAddNewTransaction(BuildContext ctx) {
+  showModalBottomSheet(
+    context: ctx,
+    builder: (_) {
+      return GestureDetector(
+        child: NewTransaction(),
+        onTap: () {},
+        behavior: HitTestBehavior.opaque,
+      );
+    },
+  );
+}
+
 class _ExpenseContainerState extends State<ExpenseContainer> {
   final List<Transactions> transactions = [
-    Transactions(id: DateTime.now().toString(), amount: 12.00, txName: 'Transaction Name', time:DateTime.now() ),
-    Transactions(id: DateTime.now().toString(), amount: 12.00, txName: 'Second Name', time:DateTime.now() ),
-    Transactions(id: DateTime.now().toString(), amount: 12.00, txName: 'third Name', time:DateTime.now() ),
+    Transactions(
+        id: DateTime.now().toString(),
+        amount: 12.00,
+        txName: 'Transaction Name',
+        time: DateTime.now()),
+    Transactions(
+        id: DateTime.now().toString(),
+        amount: 12.00,
+        txName: 'Second Name',
+        time: DateTime.now()),
+    Transactions(
+        id: DateTime.now().toString(),
+        amount: 12.00,
+        txName: 'third Name',
+        time: DateTime.now()),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Personal Expenses'),
+        title: Text(
+          'Personal Expenses',
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
-          )
+            onPressed: () => _startAddNewTransaction(context),
+          ),
         ],
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              NewTransaction(),
-              TransactionList(transactions)
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.blue,
+                child: Text('CHART!'),
+                elevation: 5,
+              ),
+            ),
+            TransactionList(transactions),
+          ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
