@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './model/transaction.dart';
+import './widgets/chart.dart';
 
 void main() {
   runApp(MyApp());
@@ -92,11 +93,8 @@ class _ExpenseContainerState extends State<ExpenseContainer> {
           children: <Widget>[
             Container(
               width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('CHART!'),
-                elevation: 5,
-              ),
+              height: 200,
+              child: BarChartSample1()
             ),
             TransactionList(transactions),
           ],
