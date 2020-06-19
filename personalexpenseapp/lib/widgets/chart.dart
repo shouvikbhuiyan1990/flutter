@@ -1,7 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:personalexpenseapp/model/transaction.dart';
+import '../model/transaction.dart';
 
 class BarChartSample1 extends StatefulWidget {
+  final List<Transactions> transactions;
+
+  BarChartSample1(this.transactions);
+
   @override
   State<StatefulWidget> createState() => BarChartSample1State();
 }
@@ -71,21 +77,29 @@ class BarChartSample1State extends State<BarChartSample1> {
   }
 
   List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
+        double amount;
+
+        if(i > widget.transactions.length-1 ) {
+          amount = 0.0;
+        }
+        else {
+          amount = widget.transactions[i].amount;
+        }
         switch (i) {
           case 0:
-            return makeGroupData(0, 10,);
+            return makeGroupData(0, amount,);
           case 1:
-            return makeGroupData(1, 6.5,);
+            return makeGroupData(1, amount,);
           case 2:
-            return makeGroupData(2, 5,);
+            return makeGroupData(2, amount,);
           case 3:
-            return makeGroupData(3, 7.5,);
+            return makeGroupData(3, amount,);
           case 4:
-            return makeGroupData(4, 9,);
+            return makeGroupData(4, amount,);
           case 5:
-            return makeGroupData(5, 11.5,);
+            return makeGroupData(5, amount,);
           case 6:
-            return makeGroupData(6, 6.5,);
+            return makeGroupData(6, amount,);
           default:
             return null;
         }

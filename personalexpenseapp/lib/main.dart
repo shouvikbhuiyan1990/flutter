@@ -94,7 +94,7 @@ class _ExpenseContainerState extends State<ExpenseContainer> {
             Container(
               width: double.infinity,
               height: 200,
-              child: BarChartSample1()
+              child: BarChartSample1(transactions),
             ),
             TransactionList(transactions),
           ],
