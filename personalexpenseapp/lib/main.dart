@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
@@ -48,6 +49,19 @@ class _ExpenseContainerState extends State<ExpenseContainer> {
         time: DateTime.now()),
   ];
 
+  List<Transactions> getRecentTransactions() {
+    List<Transactions> pastTx = transactions.where((element) {
+      Duration difference = element.time.difference(DateTime.now());
+      if (difference.inDays < 7) {
+        return true;
+      } else {
+        return false;
+      }
+    }).toList();
+
+    return pastTx;
+  }
+
   void _addNewTransaction(name, amount) {
     setState(() {
       transactions.add(Transactions(
@@ -94,7 +108,7 @@ class _ExpenseContainerState extends State<ExpenseContainer> {
             Container(
               width: double.infinity,
               height: 200,
-              child: BarChartSample1(transactions),
+              child: BarChartSample1(getRecentTransactions()),
             ),
             TransactionList(transactions),
           ],

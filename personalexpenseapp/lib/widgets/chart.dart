@@ -1,4 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:personalexpenseapp/model/transaction.dart';
 import '../model/transaction.dart';
@@ -15,7 +16,27 @@ class BarChartSample1 extends StatefulWidget {
 class BarChartSample1State extends State<BarChartSample1> {
   final Color barBackgroundColor = const Color(0xff72d8bf);
 
-  int touchedIndex;
+  List<Map<String, Object>> get groupedTransactionValues {
+    return List.generate(7, (index) {
+      final weekDay = DateTime.now().subtract(
+        Duration(days: index),
+      );
+      var totalSum = 0.0;
+
+      for (var i = 0; i < widget.transactions.length; i++) {
+        if (widget.transactions[i].time.day == weekDay.day &&
+            widget.transactions[i].time.month == weekDay.month &&
+            widget.transactions[i].time.year == weekDay.year) {
+          totalSum += widget.transactions[i].amount;
+        }
+      }
+
+      return {
+        'day': DateFormat.E().format(weekDay),
+        'amount': totalSum,
+      };
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,35 +98,16 @@ class BarChartSample1State extends State<BarChartSample1> {
   }
 
   List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
-        double amount;
+        List<Map<String, Object>> recentTxObj = groupedTransactionValues;
 
-        if(i > widget.transactions.length-1 ) {
-          amount = 0.0;
-        }
-        else {
-          amount = widget.transactions[i].amount;
-        }
-        switch (i) {
-          case 0:
-            return makeGroupData(0, amount,);
-          case 1:
-            return makeGroupData(1, amount,);
-          case 2:
-            return makeGroupData(2, amount,);
-          case 3:
-            return makeGroupData(3, amount,);
-          case 4:
-            return makeGroupData(4, amount,);
-          case 5:
-            return makeGroupData(5, amount,);
-          case 6:
-            return makeGroupData(6, amount,);
-          default:
-            return null;
-        }
+        return makeGroupData(
+          6,
+          recentTxObj[i]['amount'],
+        );
       });
 
   BarChartData mainBarData() {
+    List<Map<String, Object>> recentTxObj = groupedTransactionValues;
     return BarChartData(
       titlesData: FlTitlesData(
         show: true,
@@ -115,24 +117,7 @@ class BarChartSample1State extends State<BarChartSample1> {
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
           getTitles: (double value) {
-            switch (value.toInt()) {
-              case 0:
-                return 'M';
-              case 1:
-                return 'T';
-              case 2:
-                return 'W';
-              case 3:
-                return 'T';
-              case 4:
-                return 'F';
-              case 5:
-                return 'S';
-              case 6:
-                return 'S';
-              default:
-                return '';
-            }
+            return recentTxObj[value.toInt()]['day'];
           },
         ),
         leftTitles: SideTitles(
