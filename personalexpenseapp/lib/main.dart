@@ -62,13 +62,13 @@ class _ExpenseContainerState extends State<ExpenseContainer> {
     return pastTx;
   }
 
-  void _addNewTransaction(name, amount) {
+  void _addNewTransaction(name, amount, addedTime) {
     setState(() {
       transactions.add(Transactions(
         amount: double.parse(amount),
         id: DateTime.now().toString(),
         txName: name,
-        time: DateTime.now(),
+        time: addedTime,
       ));
     });
   }

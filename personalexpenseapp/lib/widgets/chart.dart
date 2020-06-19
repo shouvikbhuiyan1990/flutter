@@ -38,6 +38,11 @@ class BarChartSample1State extends State<BarChartSample1> {
     });
   }
 
+  double get totalSpent {
+    return widget.transactions
+        .fold(0.0, (previousValue, element) => previousValue + element.amount);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -99,10 +104,11 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
         List<Map<String, Object>> recentTxObj = groupedTransactionValues;
+        double totalSpentValue = totalSpent;
 
         return makeGroupData(
           6,
-          recentTxObj[i]['amount'],
+          ((recentTxObj[i]['amount'] as double) / totalSpentValue) * 100,
         );
       });
 
