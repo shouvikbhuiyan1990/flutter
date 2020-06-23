@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CategoryItems extends StatelessWidget {
-
   final String title;
   final Color tileColor;
 
@@ -11,6 +10,7 @@ class CategoryItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey) ,
         borderRadius: BorderRadius.all(Radius.circular(20)),
         gradient: LinearGradient(
           tileMode: TileMode.mirror,
@@ -20,7 +20,9 @@ class CategoryItems extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Text(title),
+        child: Text(
+          title,
+        ),
       ),
     );
   }

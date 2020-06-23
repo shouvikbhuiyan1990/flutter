@@ -15,7 +15,7 @@ const Dummy_data = const [
   ),
   Categories(
     id: 'c3',
-    title: 'Germal',
+    title: 'German',
     color: Colors.deepOrange,
   ),
   Categories(
