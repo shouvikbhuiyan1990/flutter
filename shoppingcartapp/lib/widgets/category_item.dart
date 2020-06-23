@@ -6,14 +6,21 @@ class CategoryItems extends StatelessWidget {
 
   CategoryItems({this.title, this.tileColor});
 
-  void _navigateToDetailsPage(context) {
-    Navigator.of(context).pushNamed('/category-details');
+  void _navigateToDetailsPage(context, title) {
+    Navigator.pushNamed(
+      context,
+      '/category-details',
+      arguments: <String, String>{
+        'title': title,
+        'description': title,
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _navigateToDetailsPage(context),
+      onTap: () => _navigateToDetailsPage(context, title),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
