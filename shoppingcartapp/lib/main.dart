@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './screens/categorydetails_screen.dart';
 import './screens/categories_screen.dart';
 
 void main() {
@@ -16,7 +17,11 @@ class MyApp extends StatelessWidget {
         canvasColor: Color.fromRGBO(253, 252, 252, 0.8),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: CategoryMain(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => CategoryMain(),
+        '/category-details': (context) => CategoryDetails(),
+      },
     );
   }
 }
