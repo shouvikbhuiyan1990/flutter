@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../model/categories_model.dart';
 
-const Dummy_date = const [
+const Dummy_data = const [
   Categories(
     id: 'c1',
     title: 'Indian',

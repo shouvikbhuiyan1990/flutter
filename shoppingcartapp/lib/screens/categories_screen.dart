@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shoppingcartapp/data/category_dummy_data.dart';
+
+import '../widgets/category_item.dart';
 
 class CategoryMain extends StatelessWidget {
   const CategoryMain({Key key}) : super(key: key);
@@ -10,16 +13,15 @@ class CategoryMain extends StatelessWidget {
         title: const Text('Category List'),
       ),
       body: Container(
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 15),
         child: GridView(
           children: <Widget>[
-            Text('1'),
-            Text('2'),
-            Text('3'),
-            Text('4'),
-            Text('5'),
-            Text('6'),
-            Text('7'),
-            Text('8')
+            ...Dummy_data.map(
+              (e) => CategoryItems(
+                title: e.title,
+                tileColor: e.color,
+              ),
+            ).toList()
           ],
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200,
