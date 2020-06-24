@@ -31,6 +31,7 @@ class CategoryDetails extends StatelessWidget {
             duration: selectedMeals[index].duration,
             affordability: selectedMeals[index].affordability,
             complexity: selectedMeals[index].complexity,
+            id: selectedMeals[index].id,
           ),
           itemCount: selectedMeals.length,
         ),

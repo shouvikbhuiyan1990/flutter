@@ -5,12 +5,14 @@ import '../model/meals_model.dart';
 
 class CategoryDetailsItem extends StatelessWidget {
   final String title;
+  final String id;
   final String imageUrl;
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
 
   CategoryDetailsItem({
+    this.id,
     this.title,
     this.imageUrl,
     this.duration,
@@ -52,18 +54,20 @@ class CategoryDetailsItem extends StatelessWidget {
     }
   }
 
-  void _navigateToDetailsPage(context) {
+  void _navigateToDetailsPage(context, id) {
     Navigator.pushNamed(
       context,
       MealDetails.routeName,
-      arguments: <String, String>{},
+      arguments: <String, String>{
+        'id': id
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _navigateToDetailsPage(context),
+      onTap: () => _navigateToDetailsPage(context, id),
       child: Container(
           margin: EdgeInsets.only(
             top: 10,
