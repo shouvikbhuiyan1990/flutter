@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/mealdetails_screen.dart';
 import '../model/meals_model.dart';
 
 class CategoryDetailsItem extends StatelessWidget {
@@ -54,7 +55,7 @@ class CategoryDetailsItem extends StatelessWidget {
   void _navigateToDetailsPage(context) {
     Navigator.pushNamed(
       context,
-      '/meal-details',
+      MealDetails.routeName,
       arguments: <String, String>{},
     );
   }

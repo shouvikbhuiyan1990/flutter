@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => CategoryMain(),
-        '/category-details': (context) => CategoryDetails(),
-        '/meal-details': (context) => MealDetails(),
+        CategoryDetails.routeName: (context) => CategoryDetails(),
+        MealDetails.routeName: (context) => MealDetails(),
       },
     );
   }

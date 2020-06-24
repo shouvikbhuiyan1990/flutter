@@ -5,15 +5,19 @@ import '../widgets/categorydetails_item.dart';
 import '../data/category_dummy_data.dart';
 
 class CategoryDetails extends StatelessWidget {
+  static String routeName = '/category-details';
+
   @override
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
 
     final String categoryId = args['id'];
-    final List<Meal> selectedMeals = DUMMY_MEALS.where(
-      (element) => element.categories.contains(categoryId),
-    ).toList();
+    final List<Meal> selectedMeals = DUMMY_MEALS
+        .where(
+          (element) => element.categories.contains(categoryId),
+        )
+        .toList();
 
     return Scaffold(
       appBar: AppBar(

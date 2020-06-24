@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/categorydetails_screen.dart';
+
 class CategoryItems extends StatelessWidget {
   final String title;
   final Color tileColor;
@@ -10,7 +12,7 @@ class CategoryItems extends StatelessWidget {
   void _navigateToDetailsPage(context, title) {
     Navigator.pushNamed(
       context,
-      '/category-details',
+      CategoryDetails.routeName,
       arguments: <String, String>{
         'title': title,
         'id': id,
