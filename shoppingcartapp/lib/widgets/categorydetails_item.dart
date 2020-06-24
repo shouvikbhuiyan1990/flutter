@@ -51,101 +51,112 @@ class CategoryDetailsItem extends StatelessWidget {
     }
   }
 
+  void _navigateToDetailsPage(context) {
+    Navigator.pushNamed(
+      context,
+      '/meal-details',
+      arguments: <String, String>{},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.only(
-          top: 10,
-          bottom: 10,
-          left: 5,
-          right: 5,
-        ),
-        child: Card(
-          elevation: 3,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(15),
-            ),
+    return InkWell(
+      onTap: () => _navigateToDetailsPage(context),
+      child: Container(
+          margin: EdgeInsets.only(
+            top: 10,
+            bottom: 10,
+            left: 5,
+            right: 5,
           ),
-          color: Theme.of(context).canvasColor,
-          child: Column(
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15)),
-                    child: Image.network(
-                      imageUrl,
-                      height: 250,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 8,
-                    right: 10,
-                    width: 200,
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.black54,
-                      ),
-                      child: Text(
-                        title,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
+          child: Card(
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    )),
-                padding: EdgeInsets.all(15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+            ),
+            color: Theme.of(context).canvasColor,
+            child: Column(
+              children: <Widget>[
+                Stack(
                   children: <Widget>[
-                    Container(
-                        child: Row(
-                      children: <Widget>[
-                        Icon(Icons.update),
-                        Text(
-                          '$duration Minutes',
-                          style: TextStyle(fontSize: 12),
-                        )
-                      ],
-                    )),
-                    Container(
-                        child: Row(
-                      children: <Widget>[
-                        Icon(Icons.whatshot),
-                        Text(
-                          _getComplexityText,
-                          style: TextStyle(fontSize: 12),
-                        )
-                      ],
-                    )),
-                    Container(
-                        child: Row(
-                      children: <Widget>[
-                        Icon(Icons.content_paste),
-                        Text(
-                          _getAffordabilityText,
-                          style: TextStyle(fontSize: 12),
-                        )
-                      ],
-                    )),
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15)),
+                      child: Image.network(
+                        imageUrl,
+                        height: 250,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 8,
+                      right: 10,
+                      width: 200,
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.black54,
+                        ),
+                        child: Text(
+                          title,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    )
                   ],
                 ),
-              )
-            ],
-          ),
-        ));
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                      )),
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                          child: Row(
+                        children: <Widget>[
+                          Icon(Icons.update),
+                          Text(
+                            '$duration Minutes',
+                            style: TextStyle(fontSize: 12),
+                          )
+                        ],
+                      )),
+                      Container(
+                          child: Row(
+                        children: <Widget>[
+                          Icon(Icons.whatshot),
+                          Text(
+                            _getComplexityText,
+                            style: TextStyle(fontSize: 12),
+                          )
+                        ],
+                      )),
+                      Container(
+                          child: Row(
+                        children: <Widget>[
+                          Icon(Icons.content_paste),
+                          Text(
+                            _getAffordabilityText,
+                            style: TextStyle(fontSize: 12),
+                          )
+                        ],
+                      )),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )),
+    );
   }
 }
