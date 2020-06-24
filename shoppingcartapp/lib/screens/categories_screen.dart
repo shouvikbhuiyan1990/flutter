@@ -9,9 +9,6 @@ class CategoryMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Category List'),
-      ),
       body: Container(
         padding: EdgeInsets.fromLTRB(10, 10, 10, 15),
         child: GridView(
