@@ -20,6 +20,7 @@ class CategoryMain extends StatelessWidget {
               (e) => CategoryItems(
                 title: e.title,
                 tileColor: e.color,
+                id: e.id,
               ),
             ).toList()
           ],
