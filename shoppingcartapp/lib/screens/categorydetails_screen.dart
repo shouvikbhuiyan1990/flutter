@@ -23,6 +23,10 @@ class CategoryDetails extends StatelessWidget {
         child: ListView.builder(
           itemBuilder: (BuildContext ctx, int index) => CategoryDetailsItem(
             title: selectedMeals[index].title,
+            imageUrl: selectedMeals[index].imageUrl,
+            duration: selectedMeals[index].duration,
+            affordability: selectedMeals[index].affordability,
+            complexity: selectedMeals[index].complexity,
           ),
           itemCount: selectedMeals.length,
         ),
