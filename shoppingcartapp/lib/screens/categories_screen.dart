@@ -16,7 +16,7 @@ class CategoryMain extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(10, 10, 10, 15),
         child: GridView(
           children: <Widget>[
-            ...Dummy_data.map(
+            ...DUMMY_CATEGORIES.map(
               (e) => CategoryItems(
                 title: e.title,
                 tileColor: e.color,
