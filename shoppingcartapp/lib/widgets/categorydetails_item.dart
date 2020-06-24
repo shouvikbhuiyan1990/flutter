@@ -34,7 +34,6 @@ class CategoryDetailsItem extends StatelessWidget {
     }
   }
 
-
   String get _getAffordabilityText {
     switch (affordability) {
       case Affordability.Affordable:
@@ -62,6 +61,12 @@ class CategoryDetailsItem extends StatelessWidget {
           right: 5,
         ),
         child: Card(
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
           color: Theme.of(context).canvasColor,
           child: Column(
             children: <Widget>[

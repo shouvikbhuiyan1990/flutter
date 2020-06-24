@@ -19,7 +19,7 @@ class CategoryDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text(args['title']),
       ),
-      body: Center(
+      body: Container(
         child: ListView.builder(
           itemBuilder: (BuildContext ctx, int index) => CategoryDetailsItem(
             title: selectedMeals[index].title,
