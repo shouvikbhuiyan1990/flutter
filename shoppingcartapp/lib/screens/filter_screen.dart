@@ -17,24 +17,74 @@ class _FiltersState extends State<Filters> {
     '_isLactoseFree': false,
   };
 
+  Widget getFilters(
+    String title,
+    String subtitle,
+    Function sateSet,
+    bool currentValue,
+  ) {
+    return SwitchListTile(
+      title: Text(title),
+      subtitle: Text(subtitle),
+      value: currentValue,
+      onChanged: sateSet,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Filters'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {},
+          )
+        ],
       ),
       body: Container(
         child: Column(
           children: <Widget>[
-            SwitchListTile(
-              title: Text('Vegeterian'),
-              subtitle: Text('Select Only Vegeterian food'),
-              value: _filters['_isVegetarian'],
-              onChanged: (newValue) {
+            getFilters(
+              'Vegeterian',
+              'Select Only Vegeterian food',
+              (newValue) => {
                 setState(() {
                   _filters['_isVegetarian'] = newValue;
-                });
+                }),
               },
+              _filters['_isVegetarian'],
+            ),
+            getFilters(
+              'Vegan',
+              'Select Only Vegan food',
+              (newValue) => {
+                setState(() {
+                  _filters['_isVegan'] = newValue;
+                }),
+              },
+              _filters['_isVegan'],
+            ),
+            getFilters(
+              'Gluten Free',
+              'Select Only Gluten Free food',
+              (newValue) => {
+                setState(() {
+                  _filters['_isGlutenFree'] = newValue;
+                }),
+              },
+              _filters['_isGlutenFree'],
+            ),
+            getFilters(
+              'Lactose Free',
+              'Select Only Lactose Free food',
+              (newValue) => {
+                setState(() {
+                  _filters['_isLactoseFree'] = newValue;
+                }),
+              },
+              _filters['_isLactoseFree'],
             )
           ],
         ),
