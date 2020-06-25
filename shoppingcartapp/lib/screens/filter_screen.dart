@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
 
+import '../screens/categories_screen.dart';
 import '../widgets/main_drawer.dart';
 
 class Filters extends StatefulWidget {
   static String routeName = '/filters';
+  final Function _setPrefernce;
+  final Map<String, bool> _appliedFilters;
+
+  Filters(this._setPrefernce, this._appliedFilters);
 
   @override
   _FiltersState createState() => _FiltersState();
 }
 
 class _FiltersState extends State<Filters> {
-  final Map<String, bool> _filters = {
+  Map<String, bool> _filters = {
     '_isGlutenFree': false,
     '_isVegan': false,
     '_isVegetarian': false,
     '_isLactoseFree': false,
   };
+
+  @override
+  void initState() {
+    _filters = widget._appliedFilters;
+  
+    super.initState();
+  }
+
+  void _savePreference() {
+    widget._setPrefernce(_filters);
+    Navigator.of(context).pushReplacementNamed('/');
+  }
 
   Widget getFilters(
     String title,
@@ -39,7 +56,7 @@ class _FiltersState extends State<Filters> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),
-            onPressed: () {},
+            onPressed: _savePreference,
           )
         ],
       ),

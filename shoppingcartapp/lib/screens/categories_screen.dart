@@ -6,8 +6,6 @@ import '../widgets/category_item.dart';
 class CategoryMain extends StatelessWidget {
   static String routeName = '/categoryName';
 
-  const CategoryMain({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
