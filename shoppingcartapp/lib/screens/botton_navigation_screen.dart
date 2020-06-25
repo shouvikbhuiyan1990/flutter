@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './categories_screen.dart';
 import './favourites_screen.dart';
+import '../widgets/main_drawer.dart';
 
 class BottomTabNavigation extends StatefulWidget {
   BottomTabNavigation({Key key}) : super(key: key);
@@ -37,6 +38,7 @@ class _BottomTabNavigationState extends State<BottomTabNavigation> {
         title: Text(homeWidgets[_navigationIndex]['title']),
       ),
       body: homeWidgets[_navigationIndex]['widget'],
+      drawer: MainDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Favourites extends StatelessWidget {
+  static String routeName = '/favourites';
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
+    return Scaffold(
+      body: Center(
         child: Text('Favourites'),
       ),
     );

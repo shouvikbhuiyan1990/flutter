@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingcartapp/data/category_dummy_data.dart';
 
+import '../data/category_dummy_data.dart';
 import '../widgets/category_item.dart';
 
 class CategoryMain extends StatelessWidget {
+  static String routeName = '/categoryName';
+
   const CategoryMain({Key key}) : super(key: key);
 
   @override
