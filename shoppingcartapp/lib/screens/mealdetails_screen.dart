@@ -50,7 +50,7 @@ class MealDetails extends StatelessWidget {
                     style: TextStyle(fontSize: 14),
                   ),
                   leading: CircleAvatar(
-                    child: Text('${index+1}'),
+                    child: Text('${index + 1}'),
                     backgroundColor: Colors.pink,
                   ),
                 );
@@ -72,6 +72,12 @@ class MealDetails extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.delete),
+        onPressed: () {
+          Navigator.of(context).pop(args['id']);
+        },
       ),
     );
   }

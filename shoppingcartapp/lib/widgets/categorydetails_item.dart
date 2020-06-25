@@ -10,6 +10,7 @@ class CategoryDetailsItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function updateMealList;
 
   CategoryDetailsItem({
     this.id,
@@ -18,6 +19,7 @@ class CategoryDetailsItem extends StatelessWidget {
     this.duration,
     this.complexity,
     this.affordability,
+    this.updateMealList,
   });
 
   String get _getComplexityText {
@@ -58,9 +60,9 @@ class CategoryDetailsItem extends StatelessWidget {
     Navigator.pushNamed(
       context,
       MealDetails.routeName,
-      arguments: <String, String>{
-        'id': id
-      },
+      arguments: <String, String>{'id': id},
+    ).then(
+      (value) => updateMealList(value),
     );
   }
 
