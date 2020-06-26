@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Product extends ChangeNotifier {
+class ProductItem extends ChangeNotifier {
   @required
   final String id;
   @required
@@ -13,7 +13,7 @@ class Product extends ChangeNotifier {
   final double price;
   bool isFavourite;
 
-  Product({
+  ProductItem({
     this.id,
     this.title,
     this.description,
