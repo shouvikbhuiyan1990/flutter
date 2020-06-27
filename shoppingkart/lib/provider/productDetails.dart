@@ -41,6 +41,14 @@ class ProductDetails extends ChangeNotifier {
     return [...prodcutList];
   }
 
+  List<ProductItem> get getFavouriteProducts {
+    return prodcutList
+        .where(
+          (element) => element.isFavourite,
+        )
+        .toList();
+  }
+
   ProductItem getProductById(pid) {
     return prodcutList.singleWhere(
       (element) => element.id == pid,

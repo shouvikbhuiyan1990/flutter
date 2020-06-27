@@ -5,10 +5,14 @@ import '../provider/productDetails.dart';
 import './product-grid-item.dart';
 
 class ProductListGrid extends StatelessWidget {
+  final bool isOnlyfavourites;
+
+  ProductListGrid(this.isOnlyfavourites);
+
   @override
   Widget build(BuildContext context) {
     final providerdata = Provider.of<ProductDetails>(context);
-    final loadedProducts = providerdata.getAllProduct;
+    final loadedProducts = isOnlyfavourites ? providerdata.getFavouriteProducts : providerdata.getAllProduct;
 
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 15),
