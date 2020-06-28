@@ -20,6 +20,10 @@ class Cart extends ChangeNotifier {
     return {...items};
   }
 
+  List<CartItem> get getAllCartItemsValue {
+    return items.values.toList();
+  }
+
   int get getTotalCartLength {
     return items.length;
   }

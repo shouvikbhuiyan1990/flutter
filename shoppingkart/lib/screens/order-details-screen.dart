@@ -3,13 +3,14 @@ import 'package:provider/provider.dart';
 
 import '../provider/order.dart';
 import '../widgets/app-drawer.dart';
+import '../widgets/order-item.dart' as orderWidget;
 
 class OrderDetails extends StatelessWidget {
   static String routeName = '/order-details';
   @override
   Widget build(BuildContext context) {
-    var orderProvider = Provider.of<Order>(context);
-    List<OrderItem> loadedOrders = orderProvider.getAllOrders;
+    final orderProvider = Provider.of<Order>(context, listen: false);
+    final List<OrderItem> loadedOrders = orderProvider.getAllOrders;
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +27,11 @@ class OrderDetails extends StatelessWidget {
                     child: Text('No Orders Placed Yet'),
                   )
                 else if (loadedOrders.length > 0)
-                  ...loadedOrders.map((e) => Text('loaded'))
+                  ...loadedOrders.map((e) => orderWidget.OrderItem(
+                        e.orderValue,
+                        e.orderTime,
+                        e.orderProducts,
+                      ))
               ],
             ),
           ),
