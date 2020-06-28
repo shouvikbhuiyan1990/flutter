@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart';
 
+import '../widgets/app-drawer.dart';
 import '../provider/cart.dart';
 import '../provider/productDetails.dart';
 import '../provider/products.dart';
@@ -21,13 +22,14 @@ class ProductDetailsScreen extends StatelessWidget {
     final cartProvider = Provider.of<Cart>(context);
 
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text(providerPItem.title),
         actions: <Widget>[
           Consumer<Cart>(
             builder: (_, cart, child) {
               return Padding(
-                padding: EdgeInsets.only(right: 40),
+                padding: EdgeInsets.only(right: 20),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushNamed(

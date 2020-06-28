@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/app-drawer.dart';
 import '../provider/cart.dart';
 import '../screens/cart-details-screen.dart';
 import '../widgets/product-list-grid.dart';
@@ -47,7 +48,7 @@ class _ProdctListingState extends State<ProdctListing> {
           Consumer<Cart>(
             builder: (_, cart, child) {
               return Padding(
-                padding: EdgeInsets.only(right: 40),
+                padding: EdgeInsets.only(right: 20),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushNamed(
@@ -76,6 +77,7 @@ class _ProdctListingState extends State<ProdctListing> {
         ],
       ),
       body: ProductListGrid(_isFavouriteSelected),
+      drawer: AppDrawer(),
     );
   }
 }

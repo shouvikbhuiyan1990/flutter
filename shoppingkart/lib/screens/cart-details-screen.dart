@@ -21,7 +21,9 @@ class CartDetails extends StatelessWidget {
               'Order Now',
               style: TextStyle(color: Colors.white),
             ),
-            onPressed: () {},
+            onPressed: () {
+              cartItemsProvider.clearAll();
+            },
           )
         ],
       ),
