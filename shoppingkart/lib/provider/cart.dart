@@ -38,7 +38,6 @@ class Cart extends ChangeNotifier {
   int get getTotalCartLengthQuantity {
     int cartlength = 0;
     items.forEach((key, value) {
-
       cartlength = cartlength + value.quantity;
     });
 
@@ -59,6 +58,16 @@ class Cart extends ChangeNotifier {
       });
     }
 
+    notifyListeners();
+  }
+
+  void clearAll() {
+    items.clear();
+    notifyListeners();
+  }
+
+  void removeOne(id) {
+    items.clear();
     notifyListeners();
   }
 }
