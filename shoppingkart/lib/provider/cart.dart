@@ -24,8 +24,28 @@ class Cart extends ChangeNotifier {
     return items.length;
   }
 
-  void addNewCartItem(
-      String productId, String title, double price) {
+  double get getTotalPrice {
+    double price = 0;
+    items.forEach((key, value) {
+      double individualPrice = value.price * value.quantity;
+
+      price = price + individualPrice;
+    });
+
+    return price;
+  }
+
+  int get getTotalCartLengthQuantity {
+    int cartlength = 0;
+    items.forEach((key, value) {
+
+      cartlength = cartlength + value.quantity;
+    });
+
+    return cartlength;
+  }
+
+  void addNewCartItem(String productId, String title, double price) {
     if (items.containsKey(productId)) {
       items[productId].quantity = items[productId].quantity + 1;
     } else {

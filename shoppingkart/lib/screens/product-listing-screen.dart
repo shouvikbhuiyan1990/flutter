@@ -61,7 +61,7 @@ class _ProdctListingState extends State<ProdctListing> {
                       left: 12,
                     ),
                     badgeContent: Text(
-                      cart.getTotalCartLength.toString(),
+                      cart.getTotalCartLengthQuantity.toString(),
                       style: TextStyle(
                         fontSize: 10,
                         color: Colors.white,

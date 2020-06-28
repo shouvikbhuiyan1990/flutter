@@ -16,7 +16,6 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double totalPrice = individualPrice * quantity;
 
     return Container(
       child: Card(
@@ -26,7 +25,7 @@ class CartItem extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                totalPrice.toString(),
+                individualPrice.toString(),
               ),
             ),
           ),

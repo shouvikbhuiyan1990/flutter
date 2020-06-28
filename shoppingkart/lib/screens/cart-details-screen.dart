@@ -30,7 +30,7 @@ class CartDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Your Cart Details:'),
+            Text('Your total Cart Value is ${cartItemsProvider.getTotalPrice}'),
             SizedBox(
               height: 20,
             ),
