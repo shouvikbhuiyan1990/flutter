@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../screens/product-details-screen.dart';
 import '../provider/products.dart';
+import '../provider/cart.dart';
 
 class ProductGridItem extends StatelessWidget {
   void _navigateToDetails(ctx, id) {
@@ -15,7 +16,8 @@ class ProductGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var providerData = Provider.of<ProductItem>(context);
+    final providerData = Provider.of<ProductItem>(context);
+    final cartdata = Provider.of<Cart>(context);
 
     return GestureDetector(
       onTap: () => _navigateToDetails(context, providerData.id),
@@ -37,7 +39,13 @@ class ProductGridItem extends StatelessWidget {
             icon: Icon(
               Icons.shopping_cart,
             ),
-            onPressed: () {},
+            onPressed: () {
+              cartdata.addNewCartItem(
+                providerData.id,
+                providerData.title,
+                providerData.price,
+              );
+            },
           ),
         ),
       ),

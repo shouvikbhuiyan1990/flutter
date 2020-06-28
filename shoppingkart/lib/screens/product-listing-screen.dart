@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/cart.dart';
+import '../screens/cart-details-screen.dart';
 import '../widgets/product-list-grid.dart';
 
 enum FilterOptions { FilteredItem, AllItems }
@@ -39,6 +43,35 @@ class _ProdctListingState extends State<ProdctListing> {
                 value: FilterOptions.AllItems,
               ),
             ],
+          ),
+          Consumer<Cart>(
+            builder: (_, cart, child) {
+              return Padding(
+                padding: EdgeInsets.only(right: 40),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      CartDetails.routeName,
+                    );
+                  },
+                  child: Badge(
+                    borderRadius: 10,
+                    position: BadgePosition.topLeft(
+                      top: 4,
+                      left: 12,
+                    ),
+                    badgeContent: Text(
+                      cart.getTotalCartLength.toString(),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: Icon(Icons.shopping_cart),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
