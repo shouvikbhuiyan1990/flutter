@@ -8,13 +8,10 @@ class CartItem extends StatelessWidget {
   final String title;
   final DateTime subTitle;
   final int quantity;
+  final String id;
 
   CartItem(
-    this.title,
-    this.subTitle,
-    this.individualPrice,
-    this.quantity,
-  );
+      this.title, this.subTitle, this.individualPrice, this.quantity, this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +19,23 @@ class CartItem extends StatelessWidget {
       builder: (ctx, cart, child) {
         return Container(
           child: Dismissible(
-            key: Key(subTitle.toString()),
+            key: UniqueKey(),
             background: Container(
               color: Theme.of(context).errorColor,
               margin: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
             ),
             onDismissed: (_) {
-              cart.clearAll();
+              cart.removeOne(id);
             },
             direction: DismissDirection.endToStart,
             child: Card(

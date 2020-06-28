@@ -9,7 +9,7 @@ class CartDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartItemsProvider = Provider.of<Cart>(context, listen: false);
+    final cartItemsProvider = Provider.of<Cart>(context);
     final Map<String, CartItem> cartItems = cartItemsProvider.getAllCartItems;
 
     return Scaffold(
@@ -30,7 +30,7 @@ class CartDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Your total Cart Value is ${cartItemsProvider.getTotalPrice}'),
+            Text('Your total Cart Value is ${cartItemsProvider.getTotalPrice.toStringAsFixed(2)}'),
             SizedBox(
               height: 20,
             ),
@@ -41,6 +41,7 @@ class CartDetails extends StatelessWidget {
                   DateTime.parse(cartItems.values.toList()[index].id),
                   cartItems.values.toList()[index].price,
                   cartItems.values.toList()[index].quantity,
+                  cartItems.keys.toList()[index]
                 ),
                 itemCount: cartItemsProvider.getTotalCartLength,
               ),

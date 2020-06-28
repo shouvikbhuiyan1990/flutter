@@ -63,11 +63,13 @@ class Cart extends ChangeNotifier {
 
   void clearAll() {
     items.clear();
+
     notifyListeners();
   }
 
   void removeOne(id) {
-    items.clear();
+    items.removeWhere((key, value) => key == id);
+
     notifyListeners();
   }
 }
