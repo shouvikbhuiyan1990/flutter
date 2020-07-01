@@ -10,12 +10,6 @@ class EditProduct extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Product'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {},
-          )
-        ],
       ),
       body: ProductForm(),
     );

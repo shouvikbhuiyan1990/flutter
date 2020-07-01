@@ -8,25 +8,56 @@ class ProductForm extends StatefulWidget {
 class _ProductFormState extends State<ProductForm> {
   final _formKey = GlobalKey<FormState>();
 
+  final _imageUrlController = TextEditingController();
+
   final _focusTitle = FocusNode();
   final _focusPrice = FocusNode();
   final _focusDescription = FocusNode();
+  final _focusImageUrl = FocusNode();
+
+  void _updateImageDisplay() {
+    if (!_focusImageUrl.hasFocus) {
+      if ((!_imageUrlController.text.startsWith('http') &&
+              !_imageUrlController.text.startsWith('https')) ||
+          (!_imageUrlController.text.endsWith('.png') &&
+              !_imageUrlController.text.endsWith('.jpg') &&
+              !_imageUrlController.text.endsWith('.jpeg'))) {
+        return;
+      }
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    _imageUrlController.addListener(_updateImageDisplay);
+    super.initState();
+  }
 
   @override
   void dispose() {
+    _imageUrlController.removeListener(_updateImageDisplay);
     //all these focus nodes to be disposed to prevent memory leak
     _focusTitle.dispose();
     _focusPrice.dispose();
     _focusDescription.dispose();
+    _focusImageUrl.dispose();
+    _imageUrlController.dispose();
     super.dispose();
+  }
+
+  void _saveForm() {
+    _formKey.currentState.validate();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(16),
       child: Form(
         key: _formKey,
+        autovalidate:
+            true, //if set to false, doesnot check validation on change
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -82,6 +113,63 @@ class _ProductFormState extends State<ProductForm> {
                   }
                   return null;
                 },
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 100,
+                      height: 100,
+                      margin: EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 1.0),
+                      ),
+                      child: _imageUrlController.text.isEmpty
+                          ? Text('Enter Image Url')
+                          : FittedBox(
+                              child: Image.network(
+                                _imageUrlController.text,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Product Image',
+                        ),
+                        autocorrect: false,
+                        textInputAction: TextInputAction.done,
+                        controller: _imageUrlController,
+                        focusNode: _focusImageUrl,
+                        keyboardType: TextInputType.url,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter an image URL.';
+                          }
+                          if (!value.startsWith('http') &&
+                              !value.startsWith('https')) {
+                            return 'Please enter a valid URL.';
+                          }
+                          if (!value.endsWith('.png') &&
+                              !value.endsWith('.jpg') &&
+                              !value.endsWith('.jpeg')) {
+                            return 'Please enter a valid image URL.';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: RaisedButton(
+                  child: Text('Submit'),
+                  onPressed: _saveForm,
+                ),
               )
             ],
           ),
