@@ -40,6 +40,21 @@ class ProductGridItem extends StatelessWidget {
               Icons.shopping_cart,
             ),
             onPressed: () {
+              Scaffold.of(context).hideCurrentSnackBar();
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  duration: Duration(
+                    seconds: 2,
+                  ),
+                  content: Text('Item is added to cart'),
+                  action: SnackBarAction(
+                    label: 'undo',
+                    onPressed: () {
+                      cartdata.removeOneItem(providerData.id);
+                    },
+                  ),
+                ),
+              );
               cartdata.addNewCartItem(
                 providerData.id,
                 providerData.title,

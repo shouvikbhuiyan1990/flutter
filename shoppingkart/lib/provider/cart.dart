@@ -76,4 +76,16 @@ class Cart extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void removeOneItem(id) {
+    int updatedQuantity = items[id].quantity - 1;
+
+    if (updatedQuantity == 0) {
+      items.removeWhere((key, value) => key == id);
+    } else {
+      items[id].quantity = updatedQuantity;
+    }
+
+    notifyListeners();
+  }
 }
