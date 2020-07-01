@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/order-details-screen.dart';
+import '../screens/manage-products-screen.dart';
 
 class AppDrawer extends StatelessWidget {
   void _navigateToDrawerMenu(BuildContext ctx, String menu) {
@@ -10,6 +11,9 @@ class AppDrawer extends StatelessWidget {
         break;
       case 'order':
         Navigator.of(ctx).pushReplacementNamed(OrderDetails.routeName);
+        break;
+      case 'manageProducts':
+        Navigator.of(ctx).pushReplacementNamed(ManageProducts.routeName);
         break;
     }
   }
@@ -28,6 +32,25 @@ class AppDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Welcome, Guest',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 80,
                 ),
@@ -40,6 +63,11 @@ class AppDrawer extends StatelessWidget {
                   title: Text('Shopping List'),
                   leading: Icon(Icons.shopping_cart),
                   onTap: () => _navigateToDrawerMenu(context, 'shopping'),
+                ),
+                ListTile(
+                  title: Text('Manage Products'),
+                  leading: Icon(Icons.build),
+                  onTap: () => _navigateToDrawerMenu(context, 'manageProducts'),
                 )
               ],
             ),
