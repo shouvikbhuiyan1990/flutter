@@ -43,16 +43,17 @@ class _ProductFormState extends State<ProductForm> {
   void didChangeDependencies() {
     final String id = ModalRoute.of(context).settings.arguments;
     if (!_initState) {
-      print(id);
       if (id != null) {
+        final ProductItem singleProduct =
+            Provider.of<ProductDetails>(context, listen: false)
+                .getProductById(id);
         productObject = {
-          'title': '',
-          'description': '',
-          'price': '0.0',
-          'imageUrl': '',
+          'title': singleProduct.title,
+          'description': singleProduct.description,
+          'price': singleProduct.price.toString(),
+          'imageUrl': singleProduct.imageUrl,
         };
-      }
-      else {
+      } else {
         productObject = {
           'title': '',
           'description': '',
@@ -105,6 +106,7 @@ class _ProductFormState extends State<ProductForm> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                initialValue: productObject['title'],
                 decoration: InputDecoration(
                   labelText: 'Product Title',
                 ),
@@ -124,6 +126,7 @@ class _ProductFormState extends State<ProductForm> {
                 },
               ),
               TextFormField(
+                initialValue: productObject['price'],
                 decoration: InputDecoration(
                   labelText: 'Product Price',
                 ),
@@ -146,6 +149,7 @@ class _ProductFormState extends State<ProductForm> {
                 },
               ),
               TextFormField(
+                initialValue: productObject['description'],
                 decoration: InputDecoration(
                   labelText: 'Product Description',
                 ),
