@@ -66,4 +66,12 @@ class ProductDetails extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void updateProductById(pid, newProduct) {
+    final int singleProductIndex =
+        prodcutList.indexWhere((element) => element.id == pid);
+    prodcutList[singleProductIndex] = newProduct;
+
+    notifyListeners();
+  }
 }

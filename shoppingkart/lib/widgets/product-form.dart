@@ -12,13 +12,13 @@ class ProductForm extends StatefulWidget {
 class _ProductFormState extends State<ProductForm> {
   final _formKey = GlobalKey<FormState>();
   bool _initState = false;
-  final _imageUrlController = TextEditingController();
 
   final _focusTitle = FocusNode();
   final _focusPrice = FocusNode();
   final _focusDescription = FocusNode();
   final _focusImageUrl = FocusNode();
   Map<String, String> productObject = {};
+  final _imageUrlController = TextEditingController();
 
   void _updateImageDisplay() {
     if (!_focusImageUrl.hasFocus) {
@@ -48,11 +48,13 @@ class _ProductFormState extends State<ProductForm> {
             Provider.of<ProductDetails>(context, listen: false)
                 .getProductById(id);
         productObject = {
+          'id': singleProduct.id,
           'title': singleProduct.title,
           'description': singleProduct.description,
           'price': singleProduct.price.toString(),
           'imageUrl': singleProduct.imageUrl,
         };
+        _imageUrlController.text = productObject['imageUrl'];
       } else {
         productObject = {
           'title': '',
@@ -82,14 +84,25 @@ class _ProductFormState extends State<ProductForm> {
     final productProvider = Provider.of<ProductDetails>(context, listen: false);
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      final ProductItem product = ProductItem(
-        id: DateTime.now().toString(),
-        description: productObject['description'],
-        imageUrl: productObject['imageUrl'],
-        price: double.parse(productObject['price']),
-        title: productObject['title'],
-      );
-      productProvider.addProduct(product);
+      if (productObject['id'] != null && productObject['id'].isNotEmpty) {
+        final ProductItem product = ProductItem(
+          id: productObject['id'],
+          description: productObject['description'],
+          imageUrl: productObject['imageUrl'],
+          price: double.parse(productObject['price']),
+          title: productObject['title'],
+        );
+        productProvider.updateProductById(productObject['id'], product);
+      } else {
+        final ProductItem product = ProductItem(
+          id: DateTime.now().toString(),
+          description: productObject['description'],
+          imageUrl: productObject['imageUrl'],
+          price: double.parse(productObject['price']),
+          title: productObject['title'],
+        );
+        productProvider.addProduct(product);
+      }
       Navigator.of(context).pop();
     }
   }
