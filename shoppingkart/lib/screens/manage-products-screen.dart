@@ -37,6 +37,7 @@ class ManageProducts extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (_, index) => ManageProductTile(
+                  availableItems[index].id,
                   availableItems[index].imageUrl,
                   availableItems[index].title,
                 ),

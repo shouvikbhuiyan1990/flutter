@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../screens/product-edit-screen.dart';
+import '../provider/productDetails.dart';
 
 class ManageProductTile extends StatelessWidget {
   final String productImage;
   final String productTitle;
+  final String productId;
 
   ManageProductTile(
+    this.productId,
     this.productImage,
     this.productTitle,
   );
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductDetails>(context, listen: false);
+
     return Card(
       child: ListTile(
         leading: Container(
@@ -32,11 +40,18 @@ class ManageProductTile extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 icon: Icon(Icons.edit),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    EditProduct.routeName,
+                    arguments: productId,
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(Icons.delete),
-                onPressed: () {},
+                onPressed: () {
+                  productProvider.deleteProductById(productId);
+                },
               )
             ],
           ),

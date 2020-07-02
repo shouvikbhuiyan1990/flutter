@@ -60,4 +60,10 @@ class ProductDetails extends ChangeNotifier {
       (element) => element.id == pid,
     );
   }
+
+  void deleteProductById(productId) {
+    prodcutList.removeWhere((element) => element.id == productId);
+
+    notifyListeners();
+  }
 }

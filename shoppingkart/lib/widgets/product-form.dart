@@ -11,19 +11,14 @@ class ProductForm extends StatefulWidget {
 
 class _ProductFormState extends State<ProductForm> {
   final _formKey = GlobalKey<FormState>();
-
+  bool _initState = false;
   final _imageUrlController = TextEditingController();
 
   final _focusTitle = FocusNode();
   final _focusPrice = FocusNode();
   final _focusDescription = FocusNode();
   final _focusImageUrl = FocusNode();
-  Map<String, String> productObject = {
-    'title': '',
-    'description': '',
-    'price': '0.0',
-    'imageUrl': '',
-  };
+  Map<String, String> productObject = {};
 
   void _updateImageDisplay() {
     if (!_focusImageUrl.hasFocus) {
@@ -42,6 +37,32 @@ class _ProductFormState extends State<ProductForm> {
   void initState() {
     _imageUrlController.addListener(_updateImageDisplay);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    final String id = ModalRoute.of(context).settings.arguments;
+    if (!_initState) {
+      print(id);
+      if (id != null) {
+        productObject = {
+          'title': '',
+          'description': '',
+          'price': '0.0',
+          'imageUrl': '',
+        };
+      }
+      else {
+        productObject = {
+          'title': '',
+          'description': '',
+          'price': '0.0',
+          'imageUrl': '',
+        };
+      }
+      _initState = true;
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -68,6 +89,7 @@ class _ProductFormState extends State<ProductForm> {
         title: productObject['title'],
       );
       productProvider.addProduct(product);
+      Navigator.of(context).pop();
     }
   }
 
