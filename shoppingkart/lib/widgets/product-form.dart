@@ -110,7 +110,23 @@ class _ProductFormState extends State<ProductForm> {
           price: double.parse(productObject['price']),
           title: productObject['title'],
         );
-        productProvider.addProduct(product).then((value) {
+        productProvider.addProduct(product).catchError((errorObj) {
+          return showDialog(
+              context: context,
+              builder: (ctx) {
+                return AlertDialog(
+                  title: Text('Something went Wrong'),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              });
+        }).then((value) {
           setState(() {
             _setLoader = false;
           });
