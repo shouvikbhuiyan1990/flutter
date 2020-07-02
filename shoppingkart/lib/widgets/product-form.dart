@@ -53,6 +53,7 @@ class _ProductFormState extends State<ProductForm> {
           'description': singleProduct.description,
           'price': singleProduct.price.toString(),
           'imageUrl': singleProduct.imageUrl,
+          'isFavourite': singleProduct.isFavourite.toString(),
         };
         _imageUrlController.text = productObject['imageUrl'];
       } else {
@@ -91,6 +92,7 @@ class _ProductFormState extends State<ProductForm> {
           imageUrl: productObject['imageUrl'],
           price: double.parse(productObject['price']),
           title: productObject['title'],
+          isFavourite: productObject['isFavourite'] == 'true'
         );
         productProvider.updateProductById(productObject['id'], product);
       } else {
