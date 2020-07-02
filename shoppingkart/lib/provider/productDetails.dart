@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import './products.dart';
 
 class ProductDetails extends ChangeNotifier {
@@ -49,10 +51,31 @@ class ProductDetails extends ChangeNotifier {
         .toList();
   }
 
-  void addProduct(value) {
-    prodcutList.add(value);
+  Future<void> addProduct(value) async {
+    //async returns the await future type by default
+    try {
+      final response = await http.post(
+        'https://flutter-firebase-4e47a.firebaseio.com/products.json',
+        body: json.encode({
+          'title': value.title,
+          'description': value.description,
+          'price': value.price,
+          'imageUrl': value.imageUrl,
+        }),
+      );
 
-    notifyListeners();
+      prodcutList.add(ProductItem(
+        id: json.decode(response.body)['name'],
+        title: value.title,
+        description: value.description,
+        price: value.price,
+        imageUrl: value.imageUrl,
+      ));
+
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
   }
 
   ProductItem getProductById(pid) {
