@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/productDetails.dart';
+import '../provider/products.dart';
 
 class ProductForm extends StatefulWidget {
   @override
@@ -14,6 +18,12 @@ class _ProductFormState extends State<ProductForm> {
   final _focusPrice = FocusNode();
   final _focusDescription = FocusNode();
   final _focusImageUrl = FocusNode();
+  Map<String, String> productObject = {
+    'title': '',
+    'description': '',
+    'price': '0.0',
+    'imageUrl': '',
+  };
 
   void _updateImageDisplay() {
     if (!_focusImageUrl.hasFocus) {
@@ -47,7 +57,18 @@ class _ProductFormState extends State<ProductForm> {
   }
 
   void _saveForm() {
-    _formKey.currentState.validate();
+    final productProvider = Provider.of<ProductDetails>(context, listen: false);
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      final ProductItem product = ProductItem(
+        id: DateTime.now().toString(),
+        description: productObject['description'],
+        imageUrl: productObject['imageUrl'],
+        price: double.parse(productObject['price']),
+        title: productObject['title'],
+      );
+      productProvider.addProduct(product);
+    }
   }
 
   @override
@@ -76,6 +97,9 @@ class _ProductFormState extends State<ProductForm> {
                   }
                   return null;
                 },
+                onSaved: (value) {
+                  productObject['title'] = value;
+                },
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -95,6 +119,9 @@ class _ProductFormState extends State<ProductForm> {
                   }
                   return null;
                 },
+                onSaved: (value) {
+                  productObject['price'] = value;
+                },
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -112,6 +139,9 @@ class _ProductFormState extends State<ProductForm> {
                     return 'Description should be of 10 charecters atleast';
                   }
                   return null;
+                },
+                onSaved: (value) {
+                  productObject['description'] = value;
                 },
               ),
               Container(
@@ -158,6 +188,9 @@ class _ProductFormState extends State<ProductForm> {
                             return 'Please enter a valid image URL.';
                           }
                           return null;
+                        },
+                        onSaved: (value) {
+                          productObject['imageUrl'] = value;
                         },
                       ),
                     ),

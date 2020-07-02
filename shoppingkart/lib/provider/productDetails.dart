@@ -49,6 +49,12 @@ class ProductDetails extends ChangeNotifier {
         .toList();
   }
 
+  void addProduct(value) {
+    prodcutList.add(value);
+
+    notifyListeners();
+  }
+
   ProductItem getProductById(pid) {
     return prodcutList.singleWhere(
       (element) => element.id == pid,
