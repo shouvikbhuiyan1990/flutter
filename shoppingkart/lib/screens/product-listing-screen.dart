@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../widgets/app-drawer.dart';
 import '../provider/cart.dart';
+import '../provider/productDetails.dart';
 import '../screens/cart-details-screen.dart';
 import '../widgets/product-list-grid.dart';
 
@@ -16,6 +17,29 @@ class ProdctListing extends StatefulWidget {
 
 class _ProdctListingState extends State<ProdctListing> {
   bool _isFavouriteSelected = false;
+  bool _isInitiated = false;
+  bool _setLoader = false;
+
+  @override
+  void didChangeDependencies() {
+    if (!_isInitiated) {
+      setState(() {
+        _setLoader = true;
+      });
+      final productProvider = Provider.of<ProductDetails>(context);
+      productProvider.getAllProductsApi.then((value) {
+        setState(() {
+          _setLoader = false;
+        });
+      });
+    }
+    _isInitiated = true;
+    super.didChangeDependencies();
+  }
+
+  Future<void> _onPullRefresh(ctx) async {
+    await Provider.of<ProductDetails>(ctx, listen: false).getAllProductsApi;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +100,14 @@ class _ProdctListingState extends State<ProdctListing> {
           ),
         ],
       ),
-      body: ProductListGrid(_isFavouriteSelected),
+      body: _setLoader
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : RefreshIndicator(
+              onRefresh: () => _onPullRefresh(context),
+              child: ProductListGrid(_isFavouriteSelected),
+            ),
       drawer: AppDrawer(),
     );
   }

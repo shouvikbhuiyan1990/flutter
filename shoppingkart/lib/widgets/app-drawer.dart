@@ -27,9 +27,8 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width * 0.5,
+            width: MediaQuery.of(context).size.width * 0.6,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
@@ -56,16 +55,19 @@ class AppDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text('Orders'),
+                  dense: true,
                   leading: Icon(Icons.local_shipping),
                   onTap: () => _navigateToDrawerMenu(context, 'order'),
                 ),
                 ListTile(
                   title: Text('Shopping List'),
+                  dense: true,
                   leading: Icon(Icons.shopping_cart),
                   onTap: () => _navigateToDrawerMenu(context, 'shopping'),
                 ),
                 ListTile(
                   title: Text('Manage Products'),
+                  dense: true,
                   leading: Icon(Icons.build),
                   onTap: () => _navigateToDrawerMenu(context, 'manageProducts'),
                 )
