@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import './products.dart';
+import '../model/http-exceptions.dart';
 
 class ProductDetails extends ChangeNotifier {
   List<ProductItem> prodcutList = [
@@ -45,7 +46,7 @@ class ProductDetails extends ChangeNotifier {
 
     final Map<String, dynamic> responseBody = json.decode(response.body);
     prodcutList.length = 0;
-    if(responseBody == null) {
+    if (responseBody == null) {
       return;
     }
     responseBody.forEach((productId, product) {
@@ -110,10 +111,27 @@ class ProductDetails extends ChangeNotifier {
     );
   }
 
-  void deleteProductById(productId) {
-    prodcutList.removeWhere((element) => element.id == productId);
+  Future<void> deleteProductById(productId) async {
+    final url =
+        'https://flutter-firebase-4e47a.firebaseio.com/products/$productId.json';
 
+    int indexOfToDeleteItem =
+        prodcutList.indexWhere((element) => element.id == productId);
+    ProductItem tempProductSave = prodcutList[indexOfToDeleteItem];
+    prodcutList.removeAt(indexOfToDeleteItem);
     notifyListeners();
+    try {
+      final response = await http.delete(url);
+      if (response.statusCode >= 400) {
+        prodcutList.insert(indexOfToDeleteItem, tempProductSave);
+        notifyListeners();
+        throw HttpException('Something Went Wrong');
+      }
+    } catch (e) {
+      //comes here from the code above written for handling exception in custom class
+      throw e;
+    }
+    tempProductSave = null;
   }
 
   Future<void> updateProductByIdApi(pid, value) async {
