@@ -45,14 +45,20 @@ class ProductDetails extends ChangeNotifier {
 
     final Map<String, dynamic> responseBody = json.decode(response.body);
     prodcutList.length = 0;
+    if(responseBody == null) {
+      return;
+    }
     responseBody.forEach((productId, product) {
-      prodcutList.add(ProductItem(
+      prodcutList.add(
+        ProductItem(
           id: productId,
           description: product['description'],
           title: product['title'],
           price: product['price'],
           imageUrl: product['imageUrl'],
-          isFavourite: product['isFavourite'] == true));
+          isFavourite: product['isFavourite'] == true,
+        ),
+      );
     });
 
     notifyListeners();
@@ -80,6 +86,7 @@ class ProductDetails extends ChangeNotifier {
           'description': value.description,
           'price': value.price,
           'imageUrl': value.imageUrl,
+          'isFavourite': false,
         }),
       );
 
@@ -111,7 +118,7 @@ class ProductDetails extends ChangeNotifier {
 
   Future<void> updateProductByIdApi(pid, value) async {
     final url =
-        'https://flutter-firebase-4e47a.firebaseio.com/products$pid.json';
+        'https://flutter-firebase-4e47a.firebaseio.com/products/$pid.json';
     try {
       await http.patch(
         url,
