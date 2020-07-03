@@ -90,9 +90,6 @@ class _ProductFormState extends State<ProductForm> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (productObject['id'] != null && productObject['id'].isNotEmpty) {
-        setState(() {
-          _setLoader = false;
-        });
         final ProductItem product = ProductItem(
             id: productObject['id'],
             description: productObject['description'],
@@ -100,8 +97,14 @@ class _ProductFormState extends State<ProductForm> {
             price: double.parse(productObject['price']),
             title: productObject['title'],
             isFavourite: productObject['isFavourite'] == 'true');
-        productProvider.updateProductById(productObject['id'], product);
-        Navigator.of(context).pop();
+        productProvider
+            .updateProductByIdApi(productObject['id'], product)
+            .then((value) {
+          setState(() {
+            _setLoader = false;
+          });
+          Navigator.of(context).pop();
+        });
       } else {
         final ProductItem product = ProductItem(
           id: DateTime.now().toString(),
