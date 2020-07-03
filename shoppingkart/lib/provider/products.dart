@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ProductItem extends ChangeNotifier {
   @required
@@ -22,8 +24,27 @@ class ProductItem extends ChangeNotifier {
     this.isFavourite = false,
   });
 
-  void togglePreference() {
+  Future<void> togglePreference() async {
+    bool oldPreference = isFavourite;
     isFavourite = !isFavourite;
     notifyListeners();
+    final url =
+        'https://flutter-firebase-4e47a.firebaseio.com/products/$id.json';
+    try {
+      final response = await http.patch(
+        url,
+        body: json.encode({
+          'isFavourite': !oldPreference,
+        }),
+      );
+      if (response.statusCode >= 400) {
+        isFavourite = oldPreference;
+        notifyListeners();
+      }
+    } catch (e) {
+      isFavourite = oldPreference;
+      notifyListeners();
+      throw e;
+    }
   }
 }
