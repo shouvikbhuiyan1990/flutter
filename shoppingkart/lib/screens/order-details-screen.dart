@@ -5,8 +5,14 @@ import '../provider/order.dart';
 import '../widgets/app-drawer.dart';
 import '../widgets/order-item.dart' as orderWidget;
 
-class OrderDetails extends StatelessWidget {
+class OrderDetails extends StatefulWidget {
   static String routeName = '/order-details';
+
+  @override
+  _OrderDetailsState createState() => _OrderDetailsState();
+}
+
+class _OrderDetailsState extends State<OrderDetails> {
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<Order>(context, listen: false);

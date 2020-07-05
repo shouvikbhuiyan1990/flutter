@@ -14,9 +14,9 @@ class CartDetails extends StatefulWidget {
 }
 
 class _CartDetailsState extends State<CartDetails> {
+  bool _setLoader = false;
   @override
   Widget build(BuildContext context) {
-    bool _setLoader = false;
     final cartItemsProvider = Provider.of<Cart>(context);
     final orderProvider = Provider.of<Order>(context);
     final Map<String, CartItem> cartItems = cartItemsProvider.getAllCartItems;
