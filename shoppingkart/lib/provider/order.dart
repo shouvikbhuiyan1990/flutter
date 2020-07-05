@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import './cart.dart';
 
@@ -22,14 +24,33 @@ class Order extends ChangeNotifier {
     return [...orders].toList();
   }
 
-  void addOrder(double orderTotal, List<CartItem> cartitems) {
-    final newOrderIem = OrderItem(
-      orderValue: orderTotal,
-      orderTime: DateTime.now(),
-      orderProducts: cartitems,
-    );
+  Future<void> addOrder(double orderTotal, List<CartItem> cartitems) async {
+    try {
+      await http.post(
+        'https://flutter-firebase-4e47a.firebaseio.com/orders.json',
+        body: json.encode({
+          'orderValue': orderTotal,
+          'orderTime': DateTime.now().toString(),
+          'orderProducts': cartitems.map((elem) {
+            return {
+              'id': elem.id,
+              'quantity': elem.quantity,
+              'price': elem.price,
+              'title': elem.title,
+            };
+          }).toList(),
+        }),
+      );
+      final newOrderIem = OrderItem(
+        orderValue: orderTotal,
+        orderTime: DateTime.now(),
+        orderProducts: cartitems,
+      );
 
-    orders.add(newOrderIem);
-    notifyListeners();
+      orders.add(newOrderIem);
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
   }
 }
