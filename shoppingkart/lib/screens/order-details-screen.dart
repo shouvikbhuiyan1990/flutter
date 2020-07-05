@@ -13,6 +13,25 @@ class OrderDetails extends StatefulWidget {
 }
 
 class _OrderDetailsState extends State<OrderDetails> {
+  bool _isInitiated = false;
+  bool _setLoader = false;
+  @override
+  void didChangeDependencies() {
+    final orderProvider = Provider.of<Order>(context, listen: false);
+    if (!_isInitiated) {
+      setState(() {
+        _setLoader = true;
+      });
+      orderProvider.getAndSetOrders().then((value) {
+        setState(() {
+          _setLoader = false;
+        });
+      });
+      _isInitiated = true;
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<Order>(context, listen: false);
@@ -23,26 +42,30 @@ class _OrderDetailsState extends State<OrderDetails> {
         title: Text('Order Details'),
         // automaticallyImplyLeading: false,//disable the automatic back button
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                if (loadedOrders.length == 0)
-                  Center(
-                    child: Text('No Orders Placed Yet'),
-                  )
-                else if (loadedOrders.length > 0)
-                  ...loadedOrders.map((e) => orderWidget.OrderItem(
-                        e.orderValue,
-                        e.orderTime,
-                        e.orderProducts,
-                      ))
-              ],
+      body: _setLoader
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      if (loadedOrders.length == 0)
+                        Center(
+                          child: Text('No Orders Placed Yet'),
+                        )
+                      else if (loadedOrders.length > 0)
+                        ...loadedOrders.map((e) => orderWidget.OrderItem(
+                              e.orderValue,
+                              e.orderTime,
+                              e.orderProducts,
+                            ))
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
       drawer: AppDrawer(),
     );
   }
